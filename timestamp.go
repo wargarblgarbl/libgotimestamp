@@ -13,6 +13,7 @@ type TimeStamp struct {
 	Minutes  int
 	Seconds  int
 	Decimals int
+	Frame    int
 }
 
 type PaddedStamp struct {
@@ -20,6 +21,20 @@ type PaddedStamp struct {
 	Minutes  string
 	Seconds  string
 	Decimals string
+	Frame    string
+}
+
+func intit(in string) (out int) {
+	if in == "" {
+		out = 0
+	} else {
+		outa, err := strconv.Atoi(in)
+		if err != nil {
+			panic(err)
+		}
+		out = outa
+	}
+	return
 }
 
 func round(f float64) float64 {
@@ -73,6 +88,7 @@ func MakeTimeStamp(fps float64, fpspos int) (timestamp *TimeStamp, paddedstamp *
 		Minutes:  int(minutes),
 		Seconds:  int(seconds),
 		Decimals: int(decimals),
+		Frame:    fpspos,
 	}
 
 	paddedstamp = &PaddedStamp{
@@ -80,11 +96,12 @@ func MakeTimeStamp(fps float64, fpspos int) (timestamp *TimeStamp, paddedstamp *
 		Minutes:  padStamp(timestamp.Minutes),
 		Seconds:  padStamp(timestamp.Seconds),
 		Decimals: padDec(timestamp.Decimals),
+		Frame:    strconv.Itoa(timestamp.Frame),
 	}
 	return
 }
 
-func MakeFrame(fps float64, timestamp string) int64 {
+func MakeFrame(fps float64, timestamp string) (outtimestamp *TimeStamp, outpaddedstamp *PaddedStamp) {
 	splits := strings.Split(timestamp, ":")
 
 	//	hours := splits[0]
@@ -102,5 +119,20 @@ func MakeFrame(fps float64, timestamp string) int64 {
 	}
 
 	ts := roundPlus((dur.Seconds() * fps), 0)
-	return int64(ts)
+	//return int64(ts)
+	outtimestamp = &TimeStamp{
+		Hours:    intit(splits[0]),
+		Minutes:  intit(splits[1]),
+		Seconds:  intit(ssplits[0]),
+		Decimals: intit(ssplits[1]),
+		Frame:    int(ts),
+	}
+	outpaddedstamp = &PaddedStamp{
+		Hours:    splits[0],
+		Minutes:  splits[1],
+		Seconds:  ssplits[0],
+		Decimals: ssplits[1],
+		Frame:    strconv.Itoa(int(ts)),
+	}
+	return
 }

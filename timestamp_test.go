@@ -15,8 +15,8 @@ func TestMakeTimestamp(t *testing.T) {
 }
 
 func TestMakeFrame(t *testing.T) {
-	where := MakeFrame(23.976, "0:08:20.80")
-	fmt.Println(where)
-	why := MakeFrame(23.976, "0:18:03.89")
-	fmt.Println(why)
+	where, what := MakeFrame(23.976, "0:08:20.80")
+	fmt.Println(where, what)
+	why, how := MakeFrame(23.976, "0:18:03.89")
+	fmt.Println(why, how)
 }
