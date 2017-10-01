@@ -2,8 +2,6 @@
 
 A quick library designed for working with subtitle timestamps.
 
-Currently focusing on converting a frame value to a timestamp.
-
-TODO: the reverse. 
+Can convert aas-style timestamps (eg 0:18:08.02 to an approximate frame and back)
 
 Math is probably a bit funky on the decimal output, but eh. 
