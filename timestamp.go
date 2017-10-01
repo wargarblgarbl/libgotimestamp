@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+//TimeStamp stores a timestamp as a struct of ints. 
 type TimeStamp struct {
 	Hours    int
 	Minutes  int
@@ -16,6 +17,7 @@ type TimeStamp struct {
 	Frame    int
 }
 
+//PaddedStamp stores a timestamp as a struct of strings with padding applied
 type PaddedStamp struct {
 	Hours    string
 	Minutes  string
@@ -101,6 +103,8 @@ func MakeTimeStamp(fps float64, fpspos int) (timestamp *TimeStamp, paddedstamp *
 	return
 }
 
+
+//MakeFrame converts a frame and an fps value to a TimeStamp and PaddedStamp struct
 func MakeFrame(fps float64, timestamp string) (outtimestamp *TimeStamp, outpaddedstamp *PaddedStamp) {
 	splits := strings.Split(timestamp, ":")
 
