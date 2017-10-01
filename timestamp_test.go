@@ -1,7 +1,8 @@
 package libgotimestamp
+
 import (
-	"testing"
 	"fmt"
+	"testing"
 )
 
 func TestMakeTimestamp(t *testing.T) {
